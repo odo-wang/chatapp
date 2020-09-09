@@ -11,7 +11,6 @@ function SideBar() {
                 <Avatar/>
                 <div className="sidebar__headerRight">
                     <IconButton>
-
                         <DonutLarge/>
                     </IconButton>
                     <IconButton>
@@ -29,7 +28,7 @@ function SideBar() {
                 </div>
             </div>
             <div className="sidebar__chats">
-                <SidebarChat/>
+                <SidebarChat addNewChat/>
                 <SidebarChat/>
                 <SidebarChat/>
                 <SidebarChat/>
