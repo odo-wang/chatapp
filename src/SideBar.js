@@ -1,10 +1,21 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './Sidebar.css'
 import {Avatar, IconButton} from "@material-ui/core";
 import {Chat, DonutLarge, MoreVert, SearchOutlined} from "@material-ui/icons";
 import SidebarChat from "./SidebarChat";
+import db from "./firebase";
 
 function SideBar() {
+    const [rooms, setRooms] = useState([])
+    useEffect(() => {
+    // useEffect run only once if the deps is [], like this one
+        db.collection('rooms')
+            .onSnapshot(snapshot => (setRooms(snapshot.docs.map(doc => ({
+                id: doc.id,
+                data: doc.data(),
+            })))))
+        // db.collection().onSnapshot() will keep watching the database change
+    }, [])
     return (
         <div className='sidebar'>
             <div className="sidebar__header">
@@ -29,10 +40,12 @@ function SideBar() {
             </div>
             <div className="sidebar__chats">
                 <SidebarChat addNewChat/>
-                <SidebarChat/>
-                <SidebarChat/>
-                <SidebarChat/>
-                <SidebarChat/>
+                {rooms.map(room =>
+                    <SidebarChat
+                        key={room.id}
+                        id={room.id}
+                        name={room.data.name}
+                    />)}
             </div>
         </div>
     );
