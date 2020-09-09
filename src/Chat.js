@@ -13,6 +13,7 @@ function Chat(props) {
     function sendMessage(e) {
         e.preventDefault()
         console.log('y9ou ', input)
+        setInput('')
     }
 
     return (
