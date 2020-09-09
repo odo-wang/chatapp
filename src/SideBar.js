@@ -8,13 +8,17 @@ import db from "./firebase";
 function SideBar() {
     const [rooms, setRooms] = useState([])
     useEffect(() => {
-    // useEffect run only once if the deps is [], like this one
-        db.collection('rooms')
+        // useEffect run only once if the deps is [], like this one
+        const unsubscribe = db.collection('rooms')
             .onSnapshot(snapshot => (setRooms(snapshot.docs.map(doc => ({
                 id: doc.id,
                 data: doc.data(),
             })))))
         // db.collection().onSnapshot() will keep watching the database change
+        return () => {
+            unsubscribe()
+            // using unsubscribe for cleaning up, when this widget is unmounted, unsubscribe the db
+        }
     }, [])
     return (
         <div className='sidebar'>
