@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import SideBar from "./SideBar";
 import Chat from "./Chat";
@@ -8,23 +8,29 @@ import {
     Route,
     Link,
 } from "react-router-dom";
+import Login from "./Login";
 
 function App() {
+    const [user, setUser] = useState(null)
     return (
         <div className="app">
-            <div className="app__body">
-                <Router>
-                    <SideBar/>
-                    <Switch>
-                        <Route path='/rooms/:roomId'>
-                            <Chat/>
-                        </Route>
-                        <Route path='/'>
-                            <h1>home page</h1>
-                        </Route>
-                    </Switch>
-                </Router>
-            </div>
+            {!user ? (
+                <Login/>
+            ) : (
+                <div className="app__body">
+                    <Router>
+                        <SideBar/>
+                        <Switch>
+                            <Route path='/rooms/:roomId'>
+                                <Chat/>
+                            </Route>
+                            <Route path='/'>
+                                <h1>home page</h1>
+                            </Route>
+                        </Switch>
+                    </Router>
+                </div>
+            )}
         </div>
     );
 }
