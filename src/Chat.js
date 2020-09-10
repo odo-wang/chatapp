@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom'
 import './Chat.css'
 import {Avatar, IconButton} from "@material-ui/core";
-import {AttachFile, InsertEmoticon, Mic, MoreVert, SearchOutlined} from "@material-ui/icons";
+import {AttachFile, InsertEmoticon, Mic, MoreVert, SearchOutlined, Send} from "@material-ui/icons";
 import db from "./firebase";
 import {useStateValue} from "./StateProvider";
 import firebase from "firebase";
@@ -97,7 +97,7 @@ function Chat(props) {
                            type="text"
                            placeholder='Type a message'
                     />
-                    <button type='submit' onClick={sendMessage}>send a message</button>
+                    <button type='submit' onClick={sendMessage}><Send/></button>
                 </form>
                 <Mic/>
             </div>
